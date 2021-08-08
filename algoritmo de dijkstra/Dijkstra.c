@@ -36,18 +36,22 @@ DIJKSTRA *iniciar(int origem, int destino, int quantidadeCidade){
 
 void exibirD(DIJKSTRA *dijkstra, int quantidadeCidade){
 	int i;
+	printf("Distancia: ");
 	for(i=0; i<quantidadeCidade; i++){
 		printf("|%.f", dijkstra->distancia[i]); 
 	}
 	printf("\n\n");
+	printf("Predecessor: ");
 	for(i=0; i<quantidadeCidade; i++){
 		printf("|%d", dijkstra->predecessor[i]); 
 	}
-	printf("\n\n");
-	system("pause");
+//	printf("\n\n");
+	//system("pause");
 }
 
-void caminhoMinimo(DIJKSTRA *dijkstra, GRAFO *grafo){
+int caminhoMinimo(DIJKSTRA *dijkstra, GRAFO *grafo){
+	
+
 	
 	//index = id da cidade.
 	//0 = nó não rotulado. VERMELHO
@@ -71,7 +75,7 @@ void caminhoMinimo(DIJKSTRA *dijkstra, GRAFO *grafo){
 			}
 		}
 		status[azul] = 2; //rotulando o nó, agora ele é VERDE
-		
+		int auxAzul = azul;
 		int dist = INFINITO;
 		for(i=0; i<grafo->quantidadeCidade; i++){//quem será o proximo rotulado
 			if((dijkstra->distancia[i]<dist) && (status[i]!=2)){
@@ -79,7 +83,15 @@ void caminhoMinimo(DIJKSTRA *dijkstra, GRAFO *grafo){
 				azul = i;
 			}				
 		}
-		status[azul] = 1;
+		
+		if(azul != dijkstra->destino){
+			status[azul] = 1;
+		}
+		
+		if((auxAzul==azul)&&(status[dijkstra->destino]!=2)){
+			printf("\n Não há caminho disponivel para ir de %s até %s\n", grafo->cidades[dijkstra->origem][dijkstra->origem].nome, grafo->cidades[dijkstra->destino][dijkstra->destino].nome);
+			return 0;			
+		}
 	}
 	
 	int idAtual = dijkstra->destino;
@@ -87,10 +99,12 @@ void caminhoMinimo(DIJKSTRA *dijkstra, GRAFO *grafo){
 		printf("%s <- ", grafo->cidades[idAtual][idAtual].nome);
 		idAtual = dijkstra->predecessor[idAtual];
 	}
+	
 	printf("%s", grafo->cidades[idAtual][idAtual].nome);
 	printf("\n");
-	printf("Distancia total: %.2f", dijkstra->predecessor[idAtual]);
+	printf("Distancia total: %.2f\n\n\n", dijkstra->distancia[dijkstra->destino]);
 	system("pause");
+	return 1;
 		
 }
 

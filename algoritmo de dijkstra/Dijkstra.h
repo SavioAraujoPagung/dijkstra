@@ -13,4 +13,4 @@ DIJKSTRA *iniciar(int origem, int destino, int quantidadeCidade);
 
 void exibirD(DIJKSTRA *dijkstra, int quantidadeCidade);
 
-void caminhoMinimo(DIJKSTRA *dijkstra, GRAFO *grafo);
+int caminhoMinimo(DIJKSTRA *dijkstra, GRAFO *grafo);

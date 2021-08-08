@@ -30,27 +30,23 @@ void inicializar(GRAFO *grafo, char url[]){
 		}
 		
 		//pegar distancias para outras cidades
-		int auxQtd = quantidade;
+		int auxQtd = quantidade-1;
 		for(i=0; i<quantidade; i++){
 			fgets(info, 499, arq);
 			for (j=0; j<auxQtd; j++){
 				if(j==0){						
 					arquivo = strtok(info, ";");			
 					grafo->cidades[i][j].distancia = atof(arquivo);
-				//	printf("|%.2f ", grafo->cidades[i][j].distancia);
 					j=j+1;
 				}
-				
 				arquivo = strtok(NULL, ";");			
 				grafo->cidades[i][j].distancia = atof(arquivo);
-			//	printf("|%.2f ", grafo->cidades[i][j].distancia);
 			}
 			arquivo = strtok(NULL, "\n");			
 			grafo->cidades[i][j].distancia = atoi(arquivo);
-			//printf("\n");
 		}
 	}else{
-		printf("Erro, n?o foi possivel abrir o arquivo\n");
+		printf("Erro, nao foi possivel abrir o arquivo\n");
 	}
 	fclose(arq);
 }
@@ -79,14 +75,6 @@ void exibir(GRAFO *grafo){
 		printf("Erro, não foi possivel abrir o arquivo\n");
 	}
 }
-
-
-
-
-
-
-
-
 
 
 

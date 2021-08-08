@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-//#include "Grafo.h"
 #include "dijkstra.h"
 /*
 Seu programa deve então solicitar que o usuário informe o código da cidade de origem e o
@@ -16,8 +15,9 @@ resposta for negativa, o programa deve encerrar. Se for positiva, deve voltar ao
 */
 
 int main(int argc, char *argv[]) {
+	setlocale(LC_ALL, "Portuguese");
 	GRAFO *grafo = (GRAFO*) malloc(sizeof(GRAFO));
-	inicializar(grafo, "entrada100.txt");
+	inicializar(grafo, "entradaExemplo.txt");
 	
 	int origem; //entrada do usuario
 	int destino; //entrado do usuario
@@ -31,13 +31,14 @@ int main(int argc, char *argv[]) {
 			printf("\nID CIDADE DESTINO: ");
 			scanf("%d", &destino);
 		}while((origem<0||destino<0)||(origem>=grafo->quantidadeCidade||destino>=grafo->quantidadeCidade));
-		
+		system("cls");
 		DIJKSTRA *dijkstra = iniciar(origem, destino, grafo->quantidadeCidade);
 		caminhoMinimo(dijkstra, grafo);
+		free(dijkstra);
 		printf("\nCONTINUAR(0/1): ");
 		scanf("%d", &continuar);
 	}
-	
+
 	system("pause");
 	return 0;
 }
